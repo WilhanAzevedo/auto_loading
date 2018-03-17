@@ -7,4 +7,12 @@ class Calculation
   {
     return $a + $b;
   }
+  public function sub($c, $d)
+  {
+    return $c - $d;
+  }
+  public function multi($x, $y)
+  {
+    return $x * $y;
+  }
 }
