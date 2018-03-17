@@ -1,0 +1,60 @@
+# Adopt version 2 syntax:
+#   https://docs.docker.com/compose/compose-file/#/versioning
+version: '2'
+
+volumes:
+    data:
+
+services:
+###########################
+# Setup the Nginx container
+###########################
+    nginx:
+        image: nginx:latest
+        ports:
+            - 8080:80
+        volumes:
+            - ./devops/docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+        volumes_from:
+            - php
+
+###########################
+# Setup the PHP container
+###########################
+    php:
+        build: ./devops/docker/php/
+        expose:
+            - 9000
+        volumes:
+            - ./backend:/var/www/html
+
+###########################
+# Setup the Database (MySQL) container
+###########################
+    mysql:
+        image: mysql:5.6
+        ports:
+          - "3306:3306"
+        volumes:
+          - data:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: secretaria
+            MYSQL_DATABASE: secretaria
+            MYSQL_USER: secretaria
+            MYSQL_PASSWORD: secretaria
+
+###########################
+# Setup the Database (PhpMyAdmin) container
+###########################
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - 8888:80
+        links:
+            - mysql
+        environment:
+            PMA_ARBITRARY: 1
+            MYSQL_ROOT_PASSWORD: secretaria
+            MYSQL_USER: secretaria
+            MYSQL_PASSWORD: secretaria
+
