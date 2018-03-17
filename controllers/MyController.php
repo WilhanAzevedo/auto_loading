@@ -1,17 +1,14 @@
 <?php
 namespace Controllers;
 
-use Models\MyModel;
-use Models\Sub\SubModel;
+use Models\Calculation;
 
 class MyController
 {
     public function run()
     {
-        $myModel = new MyModel;
-        echo $myModel->getHello();
-
-        $subModel = new SubModel;
-        echo $subModel->getSubHello();
+        $calculation = new Calculation;
+        $result = $calculation->sum(1, 2);
+        echo "sum 1 + 2 = $result \n";
     }
 }
