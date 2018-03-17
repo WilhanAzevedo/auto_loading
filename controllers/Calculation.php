@@ -1,6 +1,5 @@
 <?php
-
-namespace Models;
+namespace Controllers;
 
 class Calculation
 {

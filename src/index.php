@@ -1,7 +1,8 @@
 <?php
 require_once __DIR__ . "/../vendor/autoload.php";
 
-use Controllers\MyController;
+use Controllers\Calculation;
 
-$app = new MyController;
-$app->run();
+$calc = new Calculation;
+$result = $calc->sum(1, 2);
+echo "soma 1 + 2 = $result\n";
